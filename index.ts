@@ -1,13 +1,9 @@
-import * as bcrypt from "bcrypt";
-import PacketWriter from "dimensions/packets/packetwriter";
-import PacketTypes from "dimensions/packettypes";
+import PacketWriter from "@popstarfreas/packetfactory/packetwriter";
+import PacketTypes from "terrariaserver-lite/packettypes";
 import * as fs from "fs";
-import * as Winston from "winston";
-import ChatMessage from "../../chatmessage";
-import Client from "../../client";
-import Database from "../../database";
-import TerrariaServer from "../../terrariaserver";
-import Extension from "../extension";
+import Client from "terrariaserver-lite/client";
+import TerrariaServer from "terrariaserver-lite/terrariaserver";
+import Extension from "terrariaserver-lite/extensions/extension";
 
 interface Npc {
     netId: number;
@@ -17,7 +13,7 @@ interface Npc {
 
 class Npcs extends Extension {
     public name = "Npcs";
-    public directory = "../persistance/npcs.json";
+    public directory = `${process.cwd()}/persistence/npcs.json`;
     public version = "v1.0";
     public path = "";
     private _npcs: Npc[] = [];
@@ -57,16 +53,11 @@ class Npcs extends Extension {
             .packSingle(0) // Vel Y
             .packUInt16(255) // Target
             .packByte(128) // Flags
+            .packByte(0) // Flags 2
             .packInt16(this._npcs[index].netId) // Npc NetID
             .data;
 
-        const packet2 = new PacketWriter().setType(PacketTypes.UpdateNPCBuff)
-            .packInt16(index)
-            .packByte(47)
-            .packInt16(3000)
-            .data;
-
-        client.sendPacket(new Buffer(packet + packet2, "hex"));
+        client.sendPacket(packet);
     }
 
     private async npcsFileExists(): Promise<boolean> {

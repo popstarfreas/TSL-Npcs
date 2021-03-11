@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es2017",
+        "noImplicitAny": false,
+        "sourceMap": false,
+	    "outDir": "build",
+        "strictNullChecks": true
+    },
+    "include": [
+        "**/*.ts",
+    ],
+    "exclude": [
+        "node_modules/**/*"
+    ]
+}

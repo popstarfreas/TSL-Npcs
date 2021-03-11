@@ -1,13 +1,11 @@
-import PacketWriter from "dimensions/packets/packetwriter";
-import PacketTypes from "dimensions/packettypes";
 import Npcs from "../../";
-import Client from "../../../../client";
-import Command from "../../../../command";
-import CommandHandler from "../../../../commandhandler";
-import CommandHandlers from "../../../../commandhandlers";
+import Client from "terrariaserver-lite/client";
+import Command from "terrariaserver-lite/command";
+import CommandHandler from "terrariaserver-lite/commandhandler";
+import CommandHandlers from "terrariaserver-lite/commandhandlers";
 
 class NpcCommand extends CommandHandler {
-    public name = "npc";
+    public names = ["npc"];
     public permission = "npc.use";
     private _npcMain: Npcs;
 
@@ -24,7 +22,7 @@ class NpcCommand extends CommandHandler {
                     parameters: command.parameters.slice(1)
                 }, client);
                 break;
-        }
+            }
     }
 
     private handleSpawnNpc(command: Command, client: Client): void {
