@@ -16,6 +16,6 @@
   },
   "dependencies": {
     "@popstarfreas/packetfactory": "^1.0.0",
-    "terrariaserver-lite": "file:../../TerrariaServer-Lite/bmodule"
+    "terrariaserver-lite": "file:../../TerrariaServer-Lite/pluginreference"
   }
 }

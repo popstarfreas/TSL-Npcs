@@ -8,7 +8,7 @@
         "strictNullChecks": true
     },
     "include": [
-        "**/*.ts",
+        "app/**/*.ts",
     ],
     "exclude": [
         "node_modules/**/*"
