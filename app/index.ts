@@ -1,9 +1,10 @@
-import PacketWriter from "@popstarfreas/packetfactory/packetwriter";
 import PacketTypes from "terrariaserver-lite/packettypes";
 import * as fs from "fs";
 import Client from "terrariaserver-lite/client";
 import TerrariaServer from "terrariaserver-lite/terrariaserver";
 import Extension from "terrariaserver-lite/extensions/extension";
+
+import * as NpcUpdate from "@darkgaming/rescript-terrariapacket/src/packet/Packet_NpcUpdate.gen";
 
 interface Npc {
     netId: number;
@@ -45,19 +46,25 @@ class Npcs extends Extension {
     }
 
     private syncNpc(client: Client, index: number): void {
-        const packet = new PacketWriter().setType(PacketTypes.NPCUpdate)
-            .packInt16(index)
-            .packSingle(this._npcs[index].x)
-            .packSingle(this._npcs[index].y)
-            .packSingle(0) // Vel X
-            .packSingle(0) // Vel Y
-            .packUInt16(255) // Target
-            .packByte(128) // Flags
-            .packByte(0) // Flags 2
-            .packInt16(this._npcs[index].netId) // Npc NetID
-            .data;
-
-        client.sendPacket(packet);
+        const npcUpdate = NpcUpdate.toBuffer({
+            npcSlotId: index,
+            npcTypeId: this._npcs[index].netId,
+            x: this._npcs[index].x,
+            y: this._npcs[index].y,
+            vx: 0,
+            vy: 0,
+            target: 255,
+            directionX: false,
+            directionY: false,
+            ai: [undefined, undefined, undefined, undefined],
+            spriteDirection: false,
+            life: "Max",
+            releaseOwner: undefined,
+            playerCountScale: undefined,
+            strengthMultiplier: undefined,
+            spawnedFromStatue: false
+        });
+        client.sendPacket(npcUpdate);
     }
 
     private async npcsFileExists(): Promise<boolean> {
