@@ -10,12 +10,11 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@types/node": "^12.0.1",
-    "typescript": "^3.9.2"
-  },
+  "devDependencies": {},
   "dependencies": {
-    "@popstarfreas/packetfactory": "^1.0.0",
-    "terrariaserver-lite": "file:../../TerrariaServer-Lite/pluginreference"
+    "@darkgaming/rescript-terrariapacket": "github:popstarfreas/rescript-terrariapacket#3c76ed0",
+    "@types/node": "^20.6.0",
+    "terrariaserver-lite": "./TerrariaServer-Lite/pluginreference",
+    "typescript": "^5.2.2"
   }
 }
