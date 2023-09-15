@@ -15,6 +15,7 @@
   "dependencies": {
     "@darkgaming/rescript-terrariapacket": "github:popstarfreas/rescript-terrariapacket#3c76ed0",
     "@types/node": "^20.6.0",
+    "esbuild": "^0.19.3",
     "terrariaserver-lite": "./TerrariaServer-Lite/pluginreference",
     "typescript": "^5.2.2"
   }
