@@ -1,8 +1,8 @@
-import PacketTypes from "terrariaserver-lite/packettypes";
 import * as fs from "fs";
 import Client from "terrariaserver-lite/client";
 import TerrariaServer from "terrariaserver-lite/terrariaserver";
 import Extension from "terrariaserver-lite/extensions/extension";
+import NpcCommand from "./commands/npc";
 
 import * as NpcUpdate from "@darkgaming/rescript-terrariapacket/src/packet/Packet_NpcUpdate.gen";
 
@@ -22,7 +22,7 @@ class Npcs extends Extension {
     constructor(server: TerrariaServer) {
         super(server);
         this.loadNpcs();
-        this.loadCommands(__dirname);
+        this.addCommand(new NpcCommand(this, this.server.commandHandler))
     }
 
     public addNpc(npc: Npc): void {
